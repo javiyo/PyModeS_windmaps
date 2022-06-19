@@ -80,7 +80,7 @@ class Decode:
             if 1 <= tc <= 4:
                 cs = pms.adsb.callsign(msg)
                 self.acs[icao]["call"] = cs
-                output_buffer.append([t, icao, "cs", cs])
+                # output_buffer.append([t, icao, "cs", cs])
 
             if (5 <= tc <= 8) or (tc == 19):
                 vdata = pms.adsb.velocity(msg)
@@ -100,7 +100,7 @@ class Decode:
 
                 output_buffer.append([t, icao, "gs", spd])
                 output_buffer.append([t, icao, "trk", trk])
-                output_buffer.append([t, icao, "roc", roc])
+                # output_buffer.append([t, icao, "roc", roc])
 
             if 5 <= tc <= 18:
                 oe = pms.adsb.oe_flag(msg)
@@ -171,7 +171,8 @@ class Decode:
                     ac["HFOMr"], ac["VFOMr"] = pms.adsb.nac_v(msg)
 
             if tc == 29:
-                ac["PE_RCu"], ac["PE_VPL"], ac["base"] = pms.adsb.sil(msg, ac["ver"])
+                ac["PE_RCu"], ac["PE_VPL"], ac["base"] = pms.adsb.sil(
+                    msg, ac["ver"])
                 ac["EPU"], ac["VEPU"] = pms.adsb.nac_p(msg)
 
             if tc == 31:
@@ -210,10 +211,10 @@ class Decode:
                     output_buffer.append([t, icao, "tas50", tas50])
                 if roll50:
                     self.acs[icao]["roll"] = roll50
-                    output_buffer.append([t, icao, "roll50", roll50])
+                    # output_buffer.append([t, icao, "roll50", roll50])
                 if rtrk50:
                     self.acs[icao]["rtrk"] = rtrk50
-                    output_buffer.append([t, icao, "rtrk50", rtrk50])
+                    # output_buffer.append([t, icao, "rtrk50", rtrk50])
 
                 if trk50:
                     output_buffer.append([t, icao, "trk50", trk50])
@@ -233,13 +234,14 @@ class Decode:
                     self.acs[icao]["ias"] = ias60
                 if hdg60:
                     self.acs[icao]["hdg"] = hdg60
+                    output_buffer.append([t, icao, "hdg60", hdg60])
                 if mach60:
                     self.acs[icao]["mach"] = mach60
 
-                if roc60baro:
-                    output_buffer.append([t, icao, "roc60baro", roc60baro])
-                if roc60ins:
-                    output_buffer.append([t, icao, "roc60ins", roc60ins])
+                # if roc60baro:
+                #     output_buffer.append([t, icao, "roc60baro", roc60baro])
+                # if roc60ins:
+                #     output_buffer.append([t, icao, "roc60ins", roc60ins])
 
         # clear up old data
         for icao in list(self.acs.keys()):
